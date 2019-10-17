@@ -14,7 +14,7 @@ function main () {
       [new Sprite(this, 38,0,24,16), new Sprite(this, 38,16,24,16)],
     ];
     taSprite = new Sprite(this, 62, 0, 20, 16);
-    ciSprite = new Sprite(this);
+    ciSprite = new Sprite(this, 84, 8, 36, 24);
 
     init();
     run();
@@ -23,7 +23,21 @@ function main () {
 }
 
 function init() {
-
+  frames = 0;
+  aliens = [];
+  var rows = [1, 0, 0, 2, 2];
+  for (var i = 0, len =rows.length; i < len; i++) {
+    for (var j = 0; j < 10; j++) {
+      var a = rows[i];
+      aliens.push({
+        sprite: alSprite[a],
+        x: 30 + j*30 + [0, 4, 0][a],
+        y: 30 + i*30, 
+        w: alSprite[a][0].w,
+        h: alSprite[a][0].h
+      })
+    }
+  }
 }
 
 function run() {
@@ -41,7 +55,10 @@ function update() {
 }
 
 function render() {
-  screen.drawSprite(alSprite[0][0], 10, 10);
+  for (var i = 0, len = aliens.length; i< len; i++) {
+    var a = aliens[i];
+    screen.drawSprite(a.sprite[0], a.x, a.y)
+  }
 }
 
 main();
